@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MiRollerB</string>
+    <string name="lbl_saludo">¡Greeting!</string>
+    <string name="button_click_here">¡Click here!</string>
+
+
+</resources>
