@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ProyectoClaseB</string>
+    <string name="user_txt_login">User</string>
+    <string name="password_txt_login">Password</string>
+    <string name="enter_btn_login">Login</string>
+    <string name="signin_btn_login">Sign in</string>
+</resources>
