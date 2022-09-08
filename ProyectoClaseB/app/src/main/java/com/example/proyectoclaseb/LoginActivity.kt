@@ -4,6 +4,7 @@ import android.app.Instrumentation
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 
 class LoginActivity : AppCompatActivity() {
     lateinit var btnSignin : Button
+
+    //Objeto que permitirá llamar una actividad que devuelve un resultado
     lateinit var actResulLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,9 +21,20 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.layout_login)
 
         actResulLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult(), ActivityResultCallback {
-                
-            })
+            ActivityResultContracts.StartActivityForResult(),
+                ActivityResultCallback {
+                    if( it.resultCode == RESULT_OK){
+                        val intpar = it.data
+                        val email = intpar?.getStringExtra("email")
+
+                        Toast.makeText(applicationContext,
+                            "email: $email",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    }
+                }
+            )
 
         btnSignin = findViewById(R.id.btnSigin)
         btnSignin.setOnClickListener {
@@ -41,7 +55,10 @@ class LoginActivity : AppCompatActivity() {
                 }
 
             //2) Mandar llamar la actividad con el metodo:
-            startActivity(intent_activity_sigin)
+            //startActivity(intent_activity_sigin)
+
+
+            actResulLauncher.launch(intent_activity_sigin)
 
 
 
