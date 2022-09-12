@@ -4,6 +4,7 @@ import android.app.Instrumentation
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class LoginActivity : AppCompatActivity() {
     lateinit var btnSignin : Button
+    lateinit var txtUser : EditText
 
     //Objeto que permitirá llamar una actividad que devuelve un resultado
     lateinit var actResulLauncher : ActivityResultLauncher<Intent>
@@ -32,10 +34,13 @@ class LoginActivity : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
 
+                        txtUser.setText(email)
+
                     }
                 }
             )
 
+        txtUser =  findViewById(R.id.txtUser)
         btnSignin = findViewById(R.id.btnSigin)
         btnSignin.setOnClickListener {
             //Para abrir otra actividad se debe realizar
