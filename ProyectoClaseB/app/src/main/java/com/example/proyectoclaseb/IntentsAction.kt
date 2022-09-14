@@ -22,5 +22,15 @@ class IntentsAction : AppCompatActivity() {
             val intent_dial = Intent(ACTION_DIAL, Uri.parse("tel:4451024589"))
             startActivity(intent_dial)
         }
+
+        btn2viewmap.setOnClickListener {
+            val intent_view = Intent(
+                Intent.ACTION_VIEW,
+                //Uri.parse("geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California")
+                Uri.parse("https://sicenet.itsur.edu.mx")
+            )
+            startActivity(intent_view)
+        }
+
     }
 }
