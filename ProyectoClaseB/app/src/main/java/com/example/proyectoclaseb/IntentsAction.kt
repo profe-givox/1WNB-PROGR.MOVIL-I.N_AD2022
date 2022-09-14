@@ -10,6 +10,7 @@ import android.widget.Button
 class IntentsAction : AppCompatActivity() {
     lateinit var btn1dial: Button
     lateinit var btn2viewmap: Button
+    lateinit var btn3SEND: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +18,7 @@ class IntentsAction : AppCompatActivity() {
 
         btn1dial = findViewById(R.id.btnIntent1)
         btn2viewmap = findViewById(R.id.btnIntent2)
+        btn3SEND = findViewById(R.id.btnIntentSend)
 
         btn1dial.setOnClickListener {
             val intent_dial = Intent(ACTION_DIAL, Uri.parse("tel:4451024589"))
@@ -30,6 +32,16 @@ class IntentsAction : AppCompatActivity() {
                 Uri.parse("https://sicenet.itsur.edu.mx")
             )
             startActivity(intent_view)
+        }
+
+        btn3SEND.setOnClickListener {
+            val intent_send = Intent(Intent.ACTION_SEND).apply {
+                this.putExtra(Intent.EXTRA_EMAIL, "GI.VEGA@ITSUR.EDU.MX")
+                putExtra(Intent.EXTRA_SUBJECT, "Este es el asunto")
+                putExtra(Intent.EXTRA_TEXT, "Este es el cuerpo de un mensaje")
+                type = "text/plain"
+            }
+            startActivity(intent_send)
         }
 
     }
