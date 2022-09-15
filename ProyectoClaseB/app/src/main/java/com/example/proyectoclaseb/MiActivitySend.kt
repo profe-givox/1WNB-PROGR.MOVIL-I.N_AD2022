@@ -16,5 +16,5 @@ class MiActivitySend : AppCompatActivity() {
         val texto = intent.getStringExtra(Intent.EXTRA_TEXT)
         lbl = findViewById(R.id.txtTexto)
         lbl.text = texto
-    }   
+    }
 }
