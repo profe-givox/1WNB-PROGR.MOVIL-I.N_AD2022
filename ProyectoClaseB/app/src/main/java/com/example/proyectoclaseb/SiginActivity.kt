@@ -3,10 +3,14 @@ package com.example.proyectoclaseb
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 
-class SiginActivity : AppCompatActivity() {
+class SiginActivity : AppCompatActivity(), OnItemSelectedListener {
+
+    private lateinit var arrSex: Array<String>
     lateinit var txtN : EditText
     lateinit var txtE : EditText
     lateinit var btnSave : Button
@@ -20,7 +24,7 @@ class SiginActivity : AppCompatActivity() {
 
         //1 Coleccion
 
-        val arrSex =
+        arrSex =
             resources.getStringArray(R.array.arrSexo)
 
         // 2 Adapdator
@@ -31,6 +35,25 @@ class SiginActivity : AppCompatActivity() {
             )
 
         spnSex.adapter =adaptador
+
+        //spnSex.onItemSelectedListener = this
+        spnSex.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                //TODO("Not yet implemented")
+                val itemSele = arrSex[p2]
+                Toast.makeText(applicationContext,
+                    "Elemt select: $itemSele",
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.d("SPINNER", "Elemt select: $itemSele")
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                //TODO("Not yet implemented")
+            }
+
+        }
+
 
 //        Recuperar parametros del  intent
         val titulo = intent.getStringExtra("otropar")
@@ -55,5 +78,19 @@ class SiginActivity : AppCompatActivity() {
 
 
 
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        //TODO("Not yet implemented")
+        val itemSele = arrSex[p2]
+        Toast.makeText(applicationContext,
+            "Elemt select: $itemSele",
+            Toast.LENGTH_LONG
+        ).show()
+        Log.d("SPINNER", "Elemt select: $itemSele")
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        //TODO("Not yet implemented")
     }
 }
