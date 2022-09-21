@@ -69,8 +69,9 @@ class SiginActivity : AppCompatActivity(), OnItemSelectedListener {
         btnSave = findViewById(R.id.btnSave)
 
         btnSave.setOnClickListener{
+            spnSex.selectedItem
             val inntentresult = Intent()
-            inntentresult.putExtra("email", txtE.text.toString())
+            inntentresult.putExtra("email", txtE.text.toString() + " " + spnSex.selectedItem )
             setResult(RESULT_OK, inntentresult )
             finish()
         }
