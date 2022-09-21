@@ -4,18 +4,33 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 
 class SiginActivity : AppCompatActivity() {
     lateinit var txtN : EditText
     lateinit var txtE : EditText
     lateinit var btnSave : Button
+    lateinit var spnSex : Spinner
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sigin)
+
+        spnSex = findViewById(R.id.spnSexo)
+
+        //1 Coleccion
+
+        val arrSex =
+            resources.getStringArray(R.array.arrSexo)
+
+        // 2 Adapdator
+        val adaptador = ArrayAdapter(applicationContext,
+                android.R.layout.simple_list_item_1,
+                android.R.id.text1,
+                arrSex
+            )
+
+        spnSex.adapter =adaptador
 
 //        Recuperar parametros del  intent
         val titulo = intent.getStringExtra("otropar")

@@ -3,6 +3,7 @@ package com.example.proyectoclaseb
 import android.app.Instrumentation
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -65,10 +66,54 @@ class LoginActivity : AppCompatActivity() {
 
             actResulLauncher.launch(intent_activity_sigin)
 
-
-
-
         }
+
+        Log.i("CICLovida",
+            "Paso por onCreate"
+        )
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.i("CICLovida",
+            "Paso por onStart"
+            )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("CICLovida",
+            "Paso por onResume"
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("CICLovida",
+            "Paso por onPause"
+        )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i("CICLovida",
+            "Paso por onStop"
+        )
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.i("CICLovida",
+            "Paso por onRestart"
+        )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i("CICLovida",
+            "Paso por onDestroy"
+        )
     }
 
 }
