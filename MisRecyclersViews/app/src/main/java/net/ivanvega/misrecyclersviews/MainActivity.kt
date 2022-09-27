@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import net.ivanvega.misrecyclersviews.data.listFlowers
 
 class MainActivity : AppCompatActivity() {
     lateinit var rvf : RecyclerView
@@ -17,7 +18,9 @@ class MainActivity : AppCompatActivity() {
         val flowerList =
             DataSource(application).getFlowerList()
 
-        val adaptador = FlowerAdapter(flowerList)
+        val adaptador = FlowerAdapter(listFlowers(resources))
+
+
 
         //rvf.layoutManager =
  //           LinearLayoutManager(application,LinearLayoutManager.VERTICAL,false)
