@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.callbackFlow
 import net.ivanvega.misrecyclersviews.data.Flower
 
-class FlowerAdapter (val datasource: List<Flower>, val callBackOnClik :  (Flower) -> Unit) : RecyclerView.Adapter<FlowerAdapter.FlowerViewHolder>() {
+class FlowerAdapter (val datasource: List<Flower>, val callBackOnClik :  (Flower) -> Unit) :
+    RecyclerView.Adapter<FlowerAdapter.FlowerViewHolder>() {
     class FlowerViewHolder (view: View, val callBackOnClik :  (Flower) -> Unit)  : RecyclerView.ViewHolder(view) {
         val txt : TextView
         val img : ImageView
