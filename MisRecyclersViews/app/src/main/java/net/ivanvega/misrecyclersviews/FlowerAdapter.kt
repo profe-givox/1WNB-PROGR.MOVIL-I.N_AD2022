@@ -11,7 +11,7 @@ import net.ivanvega.misrecyclersviews.data.Flower
 
 class FlowerAdapter (val datasource: List<Flower>, val callBackOnClik :  (Flower) -> Unit) :
     RecyclerView.Adapter<FlowerAdapter.FlowerViewHolder>() {
-    class FlowerViewHolder (view: View, val callBackOnClik :  (Flower) -> Unit)  : RecyclerView.ViewHolder(view) {
+    class FlowerViewHolder (view: View,  callBackOnClik :  (Flower) -> Unit)  : RecyclerView.ViewHolder(view) {
         val txt : TextView
         val img : ImageView
         var currrentFlower : Flower? = null
@@ -36,6 +36,7 @@ class FlowerAdapter (val datasource: List<Flower>, val callBackOnClik :  (Flower
     }
 
     override fun onBindViewHolder(holder: FlowerViewHolder, position: Int) {
+        holder.currrentFlower = datasource[position]
         holder.txt.text = datasource[position].name
         datasource[position].image?.let { holder.img.setImageResource(it) }
     }

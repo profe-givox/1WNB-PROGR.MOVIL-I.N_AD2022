@@ -20,19 +20,21 @@ class MainActivity : AppCompatActivity() {
         val flowerList =
             DataSource(application).getFlowerList()
 
-        val adaptador = FlowerAdapter(listFlowers(resources), {
-            Toast.makeText(application,
-                "Elemento seleccinado: ${it.name}", Toast.LENGTH_SHORT).show()
-        })
+        val adaptador = FlowerAdapter(listFlowers(resources)) {
+            Toast.makeText(
+                application,
+                "Elemento seleccinado: ${it.name}", Toast.LENGTH_SHORT
+            ).show()
+        }
 
 
 
-
-        //rvf.layoutManager =
- //           LinearLayoutManager(application,LinearLayoutManager.VERTICAL,false)
 
         rvf.layoutManager =
-            GridLayoutManager(applicationContext,2)
+            LinearLayoutManager(application,LinearLayoutManager.VERTICAL,false)
+
+//        rvf.layoutManager =
+//            GridLayoutManager(applicationContext,2)
 
         rvf.adapter = adaptador
     }
