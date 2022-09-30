@@ -15,27 +15,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        rvf = findViewById(R.id.recyclerViewFlower)
-
-        val flowerList =
-            DataSource(application).getFlowerList()
-
-        val adaptador = FlowerAdapter(listFlowers(resources)) {
-            Toast.makeText(
-                application,
-                "Elemento seleccinado: ${it.name}", Toast.LENGTH_SHORT
-            ).show()
-        }
-
-
-
-
-        rvf.layoutManager =
-            LinearLayoutManager(application,LinearLayoutManager.VERTICAL,false)
-
+//        rvf = findViewById(R.id.recyclerViewFlower)
+//
+//        val flowerList =
+//            DataSource(application).getFlowerList()
+//
+//        val adaptador = FlowerAdapter(listFlowers(resources)) {
+//            Toast.makeText(
+//                application,
+//                "Elemento seleccinado: ${it.name}", Toast.LENGTH_SHORT
+//            ).show()
+//        }
+//
+//
+//
+//
 //        rvf.layoutManager =
-//            GridLayoutManager(applicationContext,2)
-
-        rvf.adapter = adaptador
+//            LinearLayoutManager(application,LinearLayoutManager.VERTICAL,false)
+//
+////        rvf.layoutManager =
+////            GridLayoutManager(applicationContext,2)
+//
+//        rvf.adapter = adaptador
     }
 }
