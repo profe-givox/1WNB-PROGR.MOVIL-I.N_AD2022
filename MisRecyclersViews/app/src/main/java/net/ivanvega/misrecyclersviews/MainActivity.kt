@@ -8,12 +8,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.ivanvega.misrecyclersviews.data.Flower
 import net.ivanvega.misrecyclersviews.data.listFlowers
+import net.ivanvega.misrecyclersviews.fragments.FragmentListFlower
 
 class MainActivity : AppCompatActivity() {
     lateinit var rvf : RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val managerFrag = supportFragmentManager
+        val transFrag = managerFrag.beginTransaction()
+        val fragmento = FragmentListFlower()
+        transFrag.add(R.id.fragment, fragmento )
+        transFrag.commit()
 
 //        rvf = findViewById(R.id.recyclerViewFlower)
 //
