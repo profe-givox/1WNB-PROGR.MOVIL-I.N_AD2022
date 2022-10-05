@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.ivanvega.misrecyclersviews.FlowerAdapter
+import net.ivanvega.misrecyclersviews.MainActivity
 import net.ivanvega.misrecyclersviews.R
 import net.ivanvega.misrecyclersviews.data.listFlowers
 
@@ -32,6 +33,11 @@ class FragmentListFlower : Fragment() {
                 activity,
                 "Elemento seleccinado: ${it.name}", Toast.LENGTH_SHORT
             ).show()
+
+            val actiPrin = activity as MainActivity
+
+            actiPrin.mostrarFlor(it)
+
         }
 
                 rvFlores.layoutManager =

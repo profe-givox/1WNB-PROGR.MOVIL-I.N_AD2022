@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.ivanvega.misrecyclersviews.data.Flower
 import net.ivanvega.misrecyclersviews.data.listFlowers
+import net.ivanvega.misrecyclersviews.fragments.FragmentFlowerDetail
 import net.ivanvega.misrecyclersviews.fragments.FragmentListFlower
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         val managerFrag = supportFragmentManager
         val transFrag = managerFrag.beginTransaction()
         val fragmento = FragmentListFlower()
-        transFrag.add(R.id.fragment, fragmento )
+        transFrag.add(R.id.fragment_conteiner_view, fragmento )
         transFrag.commit()
 
 //        rvf = findViewById(R.id.recyclerViewFlower)
@@ -44,5 +45,13 @@ class MainActivity : AppCompatActivity() {
 ////            GridLayoutManager(applicationContext,2)
 //
 //        rvf.adapter = adaptador
+    }
+
+    fun mostrarFlor(it: Flower) {
+        val frag = FragmentFlowerDetail.newInstance(it.id.toString(), "")
+        val transac = supportFragmentManager.beginTransaction()
+        transac.replace(R.id.fragment_conteiner_view, frag)
+        transac.addToBackStack(null)
+        transac.commit()
     }
 }

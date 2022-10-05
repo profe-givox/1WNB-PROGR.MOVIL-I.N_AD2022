@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import net.ivanvega.misrecyclersviews.R
+import net.ivanvega.misrecyclersviews.data.listFlowers
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +26,11 @@ class FragmentFlowerDetail : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var  txtName : TextView
+    lateinit var  txtDescription : TextView
+    lateinit var btnDeletev : Button
+    lateinit var imgFlower : ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,7 +44,32 @@ class FragmentFlowerDetail : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.layout_fragment_flower_detail, container, false)
+
+        val layout =
+            inflater.inflate(R.layout.layout_fragment_flower_detail, container, false)
+
+        txtName = layout.findViewById(R.id.flower_detail_name)
+        txtDescription = layout.findViewById(R.id.flower_detail_description)
+        imgFlower = layout.findViewById(R.id.flower_detail_image)
+
+         val id =  param1?:0
+
+        cargarDetailFlower(id)
+
+        return layout
+    }
+
+    private fun cargarDetailFlower(id: Any) {
+        val flor = listFlowers(resources).filter {
+            it.id ==    id.toString().toLong()
+        }[0]
+
+        if (flor != null) {
+
+            txtName.text = flor.name
+            txtDescription.text = flor.description
+            imgFlower.setImageResource(flor.image ?: R.drawable.ic_launcher_background)
+        }
     }
 
     companion object {

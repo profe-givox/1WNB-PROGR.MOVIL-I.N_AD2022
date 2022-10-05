@@ -17,7 +17,7 @@ fun listFlowers ( recursos: Resources) : List<Flower>{
             recursos.getString(R.string.flower3_name),
                 R.drawable.lily,
                  recursos.getString(R.string.flower3_description)),
-        Flower(3,
+        Flower(4,
             recursos.getString(R.string.flower3_name),
                 R.drawable.lily,
                  recursos.getString(R.string.flower3_description)),
