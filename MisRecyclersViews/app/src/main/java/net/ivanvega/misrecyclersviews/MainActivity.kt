@@ -2,6 +2,7 @@ package net.ivanvega.misrecyclersviews
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,11 +18,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val managerFrag = supportFragmentManager
-        val transFrag = managerFrag.beginTransaction()
-        val fragmento = FragmentListFlower()
-        transFrag.add(R.id.fragment_conteiner_view, fragmento )
-        transFrag.commit()
+       if( findViewById<View>(R.id.fragment_conteiner_view)!=null  &&
+               supportFragmentManager.findFragmentById(R.id.fragment_conteiner_view) == null
+               ){
+           val managerFrag = supportFragmentManager
+           val transFrag = managerFrag.beginTransaction()
+           val fragmento = FragmentListFlower()
+           transFrag.add(R.id.fragment_conteiner_view, fragmento )
+           transFrag.commit()
+       }
+
+
 
 //        rvf = findViewById(R.id.recyclerViewFlower)
 //
@@ -48,10 +55,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun mostrarFlor(it: Flower) {
-        val frag = FragmentFlowerDetail.newInstance(it.id.toString(), "")
-        val transac = supportFragmentManager.beginTransaction()
-        transac.replace(R.id.fragment_conteiner_view, frag)
-        transac.addToBackStack(null)
-        transac.commit()
+
+        val pantBig = supportFragmentManager.findFragmentById(R.id.fragDetailFL) as FragmentFlowerDetail
+        if(pantBig==null) {
+            val frag = FragmentFlowerDetail.newInstance(it.id.toString(), "")
+            val transac = supportFragmentManager.beginTransaction()
+            transac.replace(R.id.fragment_conteiner_view, frag)
+            transac.addToBackStack(null)
+            transac.commit()
+        }else{
+           pantBig.cargarDetailFlower(it.id)
+        }
+
     }
 }

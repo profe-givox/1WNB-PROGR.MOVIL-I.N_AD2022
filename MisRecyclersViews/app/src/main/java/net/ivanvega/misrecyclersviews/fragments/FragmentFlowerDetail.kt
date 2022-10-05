@@ -52,14 +52,14 @@ class FragmentFlowerDetail : Fragment() {
         txtDescription = layout.findViewById(R.id.flower_detail_description)
         imgFlower = layout.findViewById(R.id.flower_detail_image)
 
-         val id =  param1?:0
+         val id =  param1?:1
 
         cargarDetailFlower(id)
 
         return layout
     }
 
-    private fun cargarDetailFlower(id: Any) {
+     fun cargarDetailFlower(id: Any) {
         val flor = listFlowers(resources).filter {
             it.id ==    id.toString().toLong()
         }[0]
