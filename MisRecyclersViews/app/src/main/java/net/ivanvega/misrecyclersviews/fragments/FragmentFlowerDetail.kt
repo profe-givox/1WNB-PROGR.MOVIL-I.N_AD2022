@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import net.ivanvega.misrecyclersviews.MainActivity
 import net.ivanvega.misrecyclersviews.R
 import net.ivanvega.misrecyclersviews.data.listFlowers
 
@@ -51,6 +52,11 @@ class FragmentFlowerDetail : Fragment() {
         txtName = layout.findViewById(R.id.flower_detail_name)
         txtDescription = layout.findViewById(R.id.flower_detail_description)
         imgFlower = layout.findViewById(R.id.flower_detail_image)
+        btnDeletev = layout.findViewById(R.id.remove_button)
+        btnDeletev.setOnClickListener {
+            val act = activity as MainActivity
+            act.deleteFlower(param1?:1)
+        }
 
          val id =  param1?:1
 

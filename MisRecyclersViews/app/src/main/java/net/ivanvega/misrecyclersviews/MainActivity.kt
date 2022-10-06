@@ -1,12 +1,15 @@
 package net.ivanvega.misrecyclersviews
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import net.ivanvega.misrecyclersviews.data.DataSource
 import net.ivanvega.misrecyclersviews.data.Flower
 import net.ivanvega.misrecyclersviews.data.listFlowers
 import net.ivanvega.misrecyclersviews.fragments.FragmentFlowerDetail
@@ -14,12 +17,17 @@ import net.ivanvega.misrecyclersviews.fragments.FragmentListFlower
 
 class MainActivity : AppCompatActivity() {
     lateinit var rvf : RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val fcvl = findViewById<View>(R.id.fragment_conteiner_view)
         val fcvf = supportFragmentManager.findFragmentById(R.id.fragment_conteiner_view)
+
+        if (DataSource.lsFlower.size==0){
+            DataSource.lsFlower.addAll(listFlowers(resources))
+        }
 
         if(fcvl!=null && fcvf==null) {
 
@@ -72,5 +80,11 @@ class MainActivity : AppCompatActivity() {
             detail.cargarDetailFlower(it.id)
         }
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun deleteFlower(id: Any) {
+        DataSource.lsFlower.removeIf { it.id == id.toString().toLong() }
+        supportFragmentManager.popBackStack()
     }
 }
