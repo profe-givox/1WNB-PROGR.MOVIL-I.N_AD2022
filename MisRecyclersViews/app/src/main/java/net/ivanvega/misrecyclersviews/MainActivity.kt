@@ -18,16 +18,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-       if( findViewById<View>(R.id.fragment_conteiner_view)!=null  &&
-               supportFragmentManager.findFragmentById(R.id.fragment_conteiner_view) == null
-               ){
-           val managerFrag = supportFragmentManager
-           val transFrag = managerFrag.beginTransaction()
-           val fragmento = FragmentListFlower()
-           transFrag.add(R.id.fragment_conteiner_view, fragmento )
-           transFrag.commit()
-       }
+        val fcvl = findViewById<View>(R.id.fragment_conteiner_view)
+        val fcvf = supportFragmentManager.findFragmentById(R.id.fragment_conteiner_view)
 
+        if(fcvl!=null && fcvf==null) {
+
+            val managerFrag = supportFragmentManager
+            val transFrag = managerFrag.beginTransaction()
+            val fragmento = FragmentListFlower()
+            transFrag.add(R.id.fragment_conteiner_view, fragmento)
+            transFrag.commit()
+
+        }
 
 
 //        rvf = findViewById(R.id.recyclerViewFlower)
@@ -55,16 +57,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun mostrarFlor(it: Flower) {
-
-        val pantBig = supportFragmentManager.findFragmentById(R.id.fragDetailFL) as FragmentFlowerDetail
-        if(pantBig==null) {
+        val fcvl = findViewById<View>(R.id.fragment_conteiner_view)
+        val fcvf = supportFragmentManager.findFragmentById(R.id.fragment_conteiner_view)
+        //val pantBig = supportFragmentManager.findFragmentById(R.id.fragDetailFL) as FragmentFlowerDetail
+        if(fcvl!=null && fcvf!=null) {
             val frag = FragmentFlowerDetail.newInstance(it.id.toString(), "")
             val transac = supportFragmentManager.beginTransaction()
             transac.replace(R.id.fragment_conteiner_view, frag)
             transac.addToBackStack(null)
             transac.commit()
         }else{
-           pantBig.cargarDetailFlower(it.id)
+           //pantBig.cargarDetailFlower(it.id)
+            val detail = supportFragmentManager.findFragmentById(R.id.fragDetailFL) as FragmentFlowerDetail
+            detail.cargarDetailFlower(it.id)
         }
 
     }
