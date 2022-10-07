@@ -49,4 +49,8 @@ class FragmentListFlower : Fragment() {
         return  layout
     }
 
+    fun actualizar() {
+        rvFlores.adapter?.notifyDataSetChanged()
+    }
+
 }

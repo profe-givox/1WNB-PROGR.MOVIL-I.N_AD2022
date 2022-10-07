@@ -53,14 +53,14 @@ class FragmentFlowerDetail : Fragment() {
         txtDescription = layout.findViewById(R.id.flower_detail_description)
         imgFlower = layout.findViewById(R.id.flower_detail_image)
         btnDeletev = layout.findViewById(R.id.remove_button)
-        btnDeletev.setOnClickListener {
-            val act = activity as MainActivity
-            act.deleteFlower(param1?:1)
+
+         //val id =  param1?:1
+
+        param1?.let {
+            cargarDetailFlower(it)
         }
 
-         val id =  param1?:1
 
-        cargarDetailFlower(id)
 
         return layout
     }
@@ -75,6 +75,13 @@ class FragmentFlowerDetail : Fragment() {
             txtName.text = flor.name
             txtDescription.text = flor.description
             imgFlower.setImageResource(flor.image ?: R.drawable.ic_launcher_background)
+
+            btnDeletev.setOnClickListener {
+                val act = activity as MainActivity
+                act.deleteFlower(id)
+            }
+
+
         }
     }
 

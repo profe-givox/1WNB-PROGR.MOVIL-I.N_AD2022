@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.ivanvega.misrecyclersviews.data.DataSource
+import net.ivanvega.misrecyclersviews.data.DataSource.lsFlower
 import net.ivanvega.misrecyclersviews.data.Flower
 import net.ivanvega.misrecyclersviews.data.listFlowers
 import net.ivanvega.misrecyclersviews.fragments.FragmentFlowerDetail
@@ -24,10 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         val fcvl = findViewById<View>(R.id.fragment_conteiner_view)
         val fcvf = supportFragmentManager.findFragmentById(R.id.fragment_conteiner_view)
-
-        if (DataSource.lsFlower.size==0){
-            DataSource.lsFlower.addAll(listFlowers(resources))
-        }
 
         if(fcvl!=null && fcvf==null) {
 
@@ -82,9 +79,26 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+
     fun deleteFlower(id: Any) {
-        DataSource.lsFlower.removeIf { it.id == id.toString().toLong() }
-        supportFragmentManager.popBackStack()
+
+        val fcvl = findViewById<View>(R.id.fragment_conteiner_view)
+        val fcvf = supportFragmentManager.findFragmentById(R.id.fragment_conteiner_view)
+        var itF : Flower? = null
+        for ( item in   DataSource.lsFlower ){
+            if(item.id==id.toString().toLong()){
+                itF = item
+            }
+        }
+        DataSource.lsFlower.remove(itF)
+
+        if(fcvl == null && fcvf == null){
+            val fragDetail = supportFragmentManager.findFragmentById(R.id.fragDetailFL) as FragmentFlowerDetail
+            fragDetail.cargarDetailFlower(DataSource.lsFlower.first().id)
+            val fragList = supportFragmentManager.findFragmentById(R.id.fragLsFl) as FragmentListFlower
+            fragList.actualizar()
+        }else{
+            supportFragmentManager.popBackStack()
+        }
     }
 }
