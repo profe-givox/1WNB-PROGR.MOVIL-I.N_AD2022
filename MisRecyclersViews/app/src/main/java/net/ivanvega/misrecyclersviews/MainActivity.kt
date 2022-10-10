@@ -92,13 +92,17 @@ class MainActivity : AppCompatActivity() {
         }
         DataSource.lsFlower.remove(itF)
 
-        if(fcvl == null && fcvf == null){
+        if(fcvl != null && fcvf != null){
+            supportFragmentManager.popBackStack()
+        }else{
             val fragDetail = supportFragmentManager.findFragmentById(R.id.fragDetailFL) as FragmentFlowerDetail
-            fragDetail.cargarDetailFlower(DataSource.lsFlower.first().id)
+            DataSource.lsFlower.elementAtOrNull(0)?.let {
+                fragDetail.cargarDetailFlower(it.id)
+            }
+
             val fragList = supportFragmentManager.findFragmentById(R.id.fragLsFl) as FragmentListFlower
             fragList.actualizar()
-        }else{
-            supportFragmentManager.popBackStack()
+
         }
     }
 }
