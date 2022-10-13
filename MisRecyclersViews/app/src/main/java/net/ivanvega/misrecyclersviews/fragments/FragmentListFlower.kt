@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import net.ivanvega.misrecyclersviews.FlowerAdapter
 import net.ivanvega.misrecyclersviews.MainActivity
 import net.ivanvega.misrecyclersviews.R
+import net.ivanvega.misrecyclersviews.data.DataSource
 import net.ivanvega.misrecyclersviews.data.listFlowers
 
 class FragmentListFlower : Fragment() {
@@ -28,7 +29,7 @@ class FragmentListFlower : Fragment() {
 
         rvFlores =   layout.findViewById<RecyclerView>(R.id.rvFlowers)
 
-        val adaptador = FlowerAdapter(listFlowers(resources)) {
+        val adaptador = FlowerAdapter( DataSource.lsFlower) {
             Toast.makeText(
                 activity,
                 "Elemento seleccinado: ${it.name}", Toast.LENGTH_SHORT
@@ -40,12 +41,16 @@ class FragmentListFlower : Fragment() {
 
         }
 
-                rvFlores.layoutManager =
-            LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
+            rvFlores.layoutManager =
+        LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
 
         rvFlores.adapter = adaptador
 
         return  layout
+    }
+
+    fun actualizar() {
+        rvFlores.adapter?.notifyDataSetChanged()
     }
 
 }
