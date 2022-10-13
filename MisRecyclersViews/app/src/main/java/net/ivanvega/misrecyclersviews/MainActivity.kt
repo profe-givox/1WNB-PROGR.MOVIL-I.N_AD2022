@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
     fun mostrarFlor(it: Flower) {
 
-        val pantBig = supportFragmentManager.findFragmentById(R.id.fragDetailFL) as FragmentFlowerDetail
+        val pantBig = supportFragmentManager.findFragmentById(R.id.fragDetailFL)
         if(pantBig==null) {
             val frag = FragmentFlowerDetail.newInstance(it.id.toString(), "")
             val transac = supportFragmentManager.beginTransaction()
@@ -64,7 +64,10 @@ class MainActivity : AppCompatActivity() {
             transac.addToBackStack(null)
             transac.commit()
         }else{
-           pantBig.cargarDetailFlower(it.id)
+           pantBig?.let {
+               (it as FragmentFlowerDetail).cargarDetailFlower(it.id)
+           }
+
         }
 
     }
