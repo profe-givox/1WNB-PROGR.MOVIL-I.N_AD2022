@@ -12,5 +12,5 @@ data class Nota(
     val uid: Int,
     val titulo: String,
     val descripcion: String,
-    val fechaCumplimiento: Date?
+    val fechaCumplimiento: String?
 )
