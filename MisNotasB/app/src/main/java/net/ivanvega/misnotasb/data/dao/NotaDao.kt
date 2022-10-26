@@ -11,7 +11,7 @@ import net.ivanvega.misnotasb.data.model.Nota
 @Dao
 interface NotaDao {
     @Insert
-    fun insertar(nota: Nota)
+    suspend fun insertar(nota: Nota)
     @Update
     fun actualizar(nota: Nota)
     @Delete
@@ -23,4 +23,7 @@ interface NotaDao {
 
     @Query("select * from Nota order by fechaCumplimiento DESC")
     fun getAllOrder(): Flow<List<Nota>>
+
+    @Query("DELETE FROM nota")
+    suspend fun deleteAll()
 }
