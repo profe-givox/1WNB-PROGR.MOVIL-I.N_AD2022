@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import net.ivanvega.misnotasb.data.database.MisNotasDatabase
 import net.ivanvega.misnotasb.data.model.Nota
 import net.ivanvega.misnotasb.databinding.ActivityMainBinding
@@ -27,11 +29,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         //db = MisNotasDatabase.getDataBase(applicationContext, )
 
+        val recyclerView = binding.recyclerview
+        val adapter = NotaListAdapter()
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
         notaViewModel.allNotas.observe(this){   notas ->
             notas?.let {
-                for( nota in  it){
+                adapter.submitList(it)
+                /*for( nota in  it){
                     Log.d("OBSERVADO", "$nota")
-                }
+                }*/
             }
         }
 
