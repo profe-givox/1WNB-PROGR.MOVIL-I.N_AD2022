@@ -42,6 +42,10 @@ android {
 }
 
 dependencies {
+
+    // Kotlin
+    implementation "androidx.core:core-ktx:$core_version"
+
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.activity:activity-ktx:$rootProject.activityVersion"
 
