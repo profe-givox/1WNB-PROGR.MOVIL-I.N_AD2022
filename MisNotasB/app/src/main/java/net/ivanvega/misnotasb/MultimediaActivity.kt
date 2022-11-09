@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.widget.MediaController
 import androidx.core.content.FileProvider
 import net.ivanvega.misnotasb.databinding.ActivityMultimediaBinding
 import java.io.File
@@ -16,8 +17,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MultimediaActivity : AppCompatActivity() {
+    private val REQUEST_TAKE_VIDEO: Int = 1001
     lateinit var photoURI: Uri
     lateinit var binding :ActivityMultimediaBinding
+    lateinit var mediaController: MediaController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +29,37 @@ class MultimediaActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_multimedia)
         binding.btnFoto.setOnClickListener {
             dispatchTakePictureIntent()
+        }
+        binding.btnVideo.setOnClickListener { tomarVideo() }
+        mediaController = MediaController(this)
+        mediaController.setAnchorView(binding.root)
+        binding.videoView .setMediaController(mediaController)
+
+    }
+
+    private fun tomarVideo() {
+        Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { takePictureIntent ->
+            // Ensure that there's a camera activity to handle the intent
+            takePictureIntent.resolveActivity(packageManager)?.also {
+                // Create the File where the photo should go
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+                    // Error occurred while creating the File
+
+                    null
+                }
+                // Continue only if the File was successfully created
+                photoFile?.also {
+                    photoURI= FileProvider.getUriForFile(
+                        this,
+                        "net.ivanvega.misnotasb.fileprovider",
+                        it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, REQUEST_TAKE_VIDEO)
+                }
+            }
         }
     }
 
@@ -68,6 +102,13 @@ class MultimediaActivity : AppCompatActivity() {
 
             //CARGO UNA IMAGEN ESCALADA
             setPic()
+        }else if(requestCode == REQUEST_TAKE_VIDEO && resultCode == RESULT_OK){
+
+
+            binding.videoView.setVideoURI(photoURI)
+            binding.videoView.start()
+
+            binding.videoView.setOnClickListener { mediaController.show() }
         }
     }
 
