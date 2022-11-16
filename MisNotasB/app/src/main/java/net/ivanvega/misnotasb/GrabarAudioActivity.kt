@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import net.ivanvega.misnotasb.databinding.ActivityGrabarAudioBinding
@@ -18,6 +19,7 @@ import java.util.*
 
 class GrabarAudioActivity : AppCompatActivity() {
 
+    private var mStartPlaying: Boolean = true
     private val REQUEST_CODE_PERMISOS_AUDIO: Int = 1001
     lateinit var binding : ActivityGrabarAudioBinding
 
@@ -49,6 +51,49 @@ class GrabarAudioActivity : AppCompatActivity() {
             mStartRecording = !mStartRecording
 
         }
+
+
+        binding.btnReproducir.setOnClickListener {
+            onPlay(mStartPlaying)
+            (it as Button).text = when (mStartPlaying) {
+                true -> "Stop playing"
+                false -> "Start playing"
+            }
+            mStartPlaying = !mStartPlaying
+        }
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        recorder?.release()
+        recorder = null
+        player?.release()
+        player = null
+
+    }
+
+    private fun onPlay(start: Boolean) = if (start) {
+        startPlaying()
+    } else {
+        stopPlaying()
+    }
+
+    private fun startPlaying() {
+        player = MediaPlayer().apply {
+            try {
+                setDataSource(fileName)
+                prepare()
+                start()
+            } catch (e: IOException) {
+                Log.e(LOG_TAG, "prepare() failed")
+            }
+        }
+    }
+
+    private fun stopPlaying() {
+        player?.release()
+        player = null
     }
 
     private fun grabarAudio() {
