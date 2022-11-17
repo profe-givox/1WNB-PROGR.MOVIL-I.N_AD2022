@@ -1,12 +1,17 @@
 package net.ivanvega.misnotasb
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.os.SystemClock
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
@@ -32,6 +37,9 @@ class GrabarAudioActivity : AppCompatActivity() {
     // Requesting permission to RECORD_AUDIO
     private var permissionToRecordAccepted = false
     private var permissions: Array<String> = arrayOf("android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.RECORD_AUDIO")
+
+    private var alarmMgr: AlarmManager? = null
+    private lateinit var alarmIntent: PendingIntent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +68,23 @@ class GrabarAudioActivity : AppCompatActivity() {
                 false -> "Start playing"
             }
             mStartPlaying = !mStartPlaying
+        }
+
+        binding.btnAlarma.setOnClickListener {
+
+
+
+            alarmMgr = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            alarmIntent = Intent(applicationContext, MiReceiverParaAlarma::class.java).let { intent ->
+                PendingIntent.getBroadcast(applicationContext, 1001, intent, 0)
+            }
+
+            alarmMgr?.set(
+                AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + 10 * 1000,
+                alarmIntent
+            )
+
         }
 
     }
