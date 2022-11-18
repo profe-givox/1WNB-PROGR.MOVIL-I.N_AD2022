@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         //db = MisNotasDatabase.getDataBase(applicationContext, )
 
+        val par = intent.getIntExtra("idTarea", 0)
+        this.title = par.toString()
+
         val recyclerView = binding.recyclerview
         val adapter = NotaListAdapter()
         recyclerView.adapter = adapter
