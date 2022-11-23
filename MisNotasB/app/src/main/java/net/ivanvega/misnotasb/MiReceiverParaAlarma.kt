@@ -1,6 +1,7 @@
 package net.ivanvega.misnotasb
 
 import android.R
+import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -8,23 +9,48 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.SystemClock
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.asLiveData
 
 
 class MiReceiverParaAlarma : BroadcastReceiver () {
     override fun onReceive(p0: Context?, p1: Intent?) {
-
+        p0?.let { createNotificationChannel(it, p1) }
         if (p1?.action == "android.intent.action.BOOT_COMPLETED") {
             // Set the alarm here.
             Toast.makeText(p0, "SE reinicio el cel", Toast.LENGTH_LONG).show()
+            //Reprogramar una alarma
+
+            val rep = (p0?.applicationContext as MisNotasApplication).repository
+
+            val lnotasLiveData = rep.allNotas.asLiveData()
+
+            lnotasLiveData.observeForever {
+                for  ( nota in it ){
+                    Log.d("NOTRAS", nota.toString())
+                }
+            }
+             val alarmMgr = p0?. getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val  alarmIntent = Intent(p0.applicationContext, MiReceiverParaAlarma::class.java).let { intent ->
+                PendingIntent.getBroadcast(p0.applicationContext, 1002, intent, 0)
+            }
+
+            alarmMgr?.set(
+                AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + 10 * 1000,
+                alarmIntent
+            )
+        }else{
+            Log.d("ALRMA", "LA ALARMA SE ACTIVO")
+            p0?.let { p1?.let { it1 -> mostrarNotificacion(it, it1) } }
         }
 
-        p0?.let { createNotificationChannel(it, p1) }
-        Log.d("ALRMA", "LA ALARMA SE ACTIVO")
-        p0?.let { p1?.let { it1 -> mostrarNotificacion(it, it1) } }
+
+
 
     }
     private fun mostrarNotificacion(context: Context, intent: Intent) {
